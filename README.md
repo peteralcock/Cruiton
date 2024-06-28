@@ -1,2 +1,2 @@
 # crouton
-Recruit
+Recruit from GitHub with AI
