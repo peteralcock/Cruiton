@@ -3,7 +3,7 @@ import openai
 from bs4 import BeautifulSoup
 
 # Set up authentication with the OpenAI API
-openai.api_key = "api_key"
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 # Define a function to scrape relevant data from Github
 def scrape_github_data(username):
@@ -23,18 +23,18 @@ def scrape_github_data(username):
 # Define a function to analyze the user's Github profile with the OpenAI API
 def analyze_github_profile(profile):
     print(profile)
-    model_engine = "gpt-4-1106-preview"  # Update the model engine here
+    model_engine = "gpt-4o"  # Update the model engine here
     
     # Create the structured input for a chat query
     messages = [
-        {"role": "system", "content": "You are a helpful assistant offering project suggestions for GitHub users."},
-        {"role": "user", "content": f"Analyze the Github profile of {profile['username']} which includes their description and suggest interesting, real open source projects they could contribute to based on their repositories {profile['repositories']} and contributions {profile['contributions']}. Only suggest real and currently active projects that could benefit from this user's contributions. List some unique and engaging repos."}
+        {"role": "system", "content": "You are a helpful technical recruiting assistant offering hiring suggestions for the user looking to hire GitHub users. Provide a psychological profile and technical complexity analysis of the Github profile's published work. Estimate their interests and strengths, as well as weaknesses and Big 5 analysis from the content of their account on GitHub."},
+        {"role": "user", "content": f"Analyze the Github profile of {profile['username']} which includes their description and suggest interesting, real open source projects they could contribute to based on their repositories {profile['repositories']} and contributions {profile['contributions']}. Only suggest real and currently active projects that could benefit from this user's contributions. List some unique and engaging repos along with your HR analysis in the form of a ruby hash."}
     ]
     
     response = openai.ChatCompletion.create(
         model=model_engine,
         messages=messages,
-        max_tokens=256,  # Adjusted max_tokens as the new model is more efficient
+        max_tokens=4000,  # Adjusted max_tokens as the new model is more efficient
     )
     message = response.choices[0]['message']['content']
     print("Prompt:\n", messages[-1]["content"])  # To print the last user query
