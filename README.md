@@ -4,11 +4,8 @@ Recruit from GitHub with AI
 ## Example Output
 
 Enter your Github username: peteralcock
-{'username': 'peteralcock', 'repositories': ['\nTrafficker\n', '\nProxsneak\n', '\nContactRocket\n', '\nMoneypenny\n'], 'contributions': [], 'description': 'Sleepless in Brooklyn'}
 
-#### HR Analysis
-
-```ruby
+```
 hr_analysis = {
   profile_overview: {
     username: "peteralcock",
